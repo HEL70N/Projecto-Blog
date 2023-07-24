@@ -3,7 +3,7 @@ namespace Code\Controller;
 
 use Code\View\View;
 
-class MyexpensesController
+class MyExpensesController
 {
 
     public function index()
@@ -15,5 +15,5 @@ class MyexpensesController
     {
         $view = new View('expenses/new.phtml');
         return $view->render();
-    }   
+    }
 }
