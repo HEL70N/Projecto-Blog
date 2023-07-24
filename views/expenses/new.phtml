@@ -3,7 +3,7 @@ require(VIEWS_PATH . 'includes/header.phtml');
 ?>
 
 <div class="container">
-    <form>
+    <form method="POST" action="<?=HOME;?>/myexpenses/new">
         <div class="form-group">
             <label for="exampleInputEmail1">Valor Gasto</label>
             <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Valor gasto..." name="price">
