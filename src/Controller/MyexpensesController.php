@@ -13,7 +13,10 @@ class MyExpensesController
 
     public function index()
     {
-        var_dump((new Expense(Connection::getInstance()))->findAll());
+        $view = new View('expenses/index.phtml');
+        $view->expenses = (new Expense(Connection::getInstance()))->findAll();
+
+        return $view->render();
     }
 
     public function new()
