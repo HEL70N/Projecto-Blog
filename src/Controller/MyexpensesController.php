@@ -44,7 +44,18 @@ class MyExpensesController
     public function edit($id)
     {
         $view = new View('expenses/edit.phtml');
+        $method = $_SERVER['REQUEST_METHOD'];
         $connection = Connection::getInstance();
+
+        if ($method == 'POST') {
+            $data = $_POST;
+            $data['id'] = $id;
+
+            $expense = new Expense($connection);
+            $expense->update($data);
+
+            return header('Location: ' . HOME . '/myexpenses');
+        }
 
         $view->categories = (new Category($connection))->findAll();
         $view->users = (new User($connection))->findAll();
