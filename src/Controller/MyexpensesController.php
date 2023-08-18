@@ -63,4 +63,12 @@ class MyExpensesController
 
         return $view->render();
     }
+
+    public function remove($id)
+    {
+        $expense = new Expense(Connection::getInstance());
+        $expense->delete($id);
+        
+        return header('Location: ' . HOME . '/myexpenses');
+    }
 }

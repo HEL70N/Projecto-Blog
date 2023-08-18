@@ -35,12 +35,12 @@ abstract class Entity
 
         $binds = array_keys($conditions);
 
-        $where = null;
+        $where  = null;
         foreach ($binds as $v) {
             if (is_null($where)) {
-                $where .= $v . ' =:' . $v;
+                $where .= $v . ' = :' . $v;
             } else {
-                $where .= $operator . $v . ' =:' . $v;
+                $where .= $operator . $v . ' = :' . $v;
             }
         }
 
@@ -56,8 +56,8 @@ abstract class Entity
     {
         $binds = array_keys($data);
 
-        $sql = 'INSERT INTO ' . $this->table . ' (' . implode(', ', $binds) . ', created_at, updated_at
-                ) VALUES(:' . implode(', :', $binds) . ', NOW(), NOW())';
+        $sql = 'INSERT INTO ' . $this->table . '(' . implode(', ', $binds) . ', created_at, updated_at
+				) VALUES(:' . implode(', :', $binds) . ', NOW(), NOW())';
 
         $insert = $this->bind($sql, $data);
 
@@ -69,6 +69,7 @@ abstract class Entity
         if (!array_key_exists('id', $data)) {
             throw new \Exception('É preciso informar um ID válido para update!');
         }
+
         $sql = 'UPDATE ' . $this->table . ' SET ';
 
         $set = null;
@@ -76,10 +77,9 @@ abstract class Entity
 
         foreach ($binds as $v) {
             if ($v !== 'id') {
-                $set .= is_null($set) ? $v . ' =:' . $v : ', ' . $v . ' =.' . $v;
+                $set .= is_null($set) ? $v . ' = :' . $v : ', ' .  $v . ' = :' . $v;
             }
         }
-
         $sql .= $set . ', updated_at = NOW() WHERE id = :id';
 
         $update = $this->bind($sql, $data);

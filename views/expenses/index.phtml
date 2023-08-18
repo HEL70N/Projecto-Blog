@@ -26,10 +26,10 @@ require(VIEWS_PATH . 'includes/header.phtml');
                         <td><?= number_format($e['value'], 2, ',', '.'); ?></td>
                         <td><?= date('d/m/Y H:i:s', strtotime($e['created_at'])); ?></td>
                         <td>
-                            <a href="#" class="btn btn-default">
+                            <a href="<?= HOME; ?>/myexpenses/edit/<?= $e['id']; ?>" class="btn btn-default">
                                 Editar
                             </a>
-                            <a href="#" class="btn btn-danger">
+                            <a href="<?= HOME; ?>/myexpenses/remove/<?= $e['id']; ?>" class="btn btn-danger">
                                 Excluir
                             </a>
                         </td>
