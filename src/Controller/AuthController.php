@@ -25,4 +25,10 @@ class AuthController
         $view = new View('auth/index.phtml');
         return $view->render();
     }
+
+    public function logout()
+    {
+        $auth = (new Authenticator())->logout();
+        die("Usuário deslogado...");
+    }
 }

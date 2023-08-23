@@ -2,6 +2,7 @@
 
 namespace Code\Controller;
 
+use Code\Authenticator\CheckUserLogged;
 use Code\DB\Connection;
 use Code\Entity\Category;
 use Code\Entity\Expense;
@@ -10,6 +11,14 @@ use Code\View\View;
 
 class MyExpensesController
 {
+    use CheckUserLogged;
+
+    public function __construct()
+    {
+        if (!$this->check()) {
+            die("Usuário não logado!");
+        }
+    }
 
     public function index()
     {
@@ -68,7 +77,7 @@ class MyExpensesController
     {
         $expense = new Expense(Connection::getInstance());
         $expense->delete($id);
-        
+
         return header('Location: ' . HOME . '/myexpenses');
     }
 }
