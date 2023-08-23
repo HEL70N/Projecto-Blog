@@ -26,9 +26,24 @@ class Session
         }
     }
 
+    public static function clear()
+    {
+        self::sessionStart();
+        session_destroy();
+        $_SESSION = [];
+    }
+
     public static function has($key)
     {
         self::sessionStart();
+
         return isset($_SESSION[$key]);
+    }
+
+    public static function get($key)
+    {
+        self::sessionStart();
+
+        return isset($_SESSION[$key]) ? $_SESSION[$key] : null;
     }
 }

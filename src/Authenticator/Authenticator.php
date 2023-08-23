@@ -38,5 +38,6 @@ class Authenticator
         if (Session::has('user')) {
             Session::remove('user');
         }
+        Session::clear();
     }
 }

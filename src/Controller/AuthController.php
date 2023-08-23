@@ -5,6 +5,7 @@ namespace Code\Controller;
 use Code\Authenticator\Authenticator;
 use Code\DB\Connection;
 use Code\Entity\User;
+use Code\Session\Flash;
 use Code\View\View;
 
 class AuthController
@@ -17,9 +18,12 @@ class AuthController
             $authenticator = new Authenticator($user);
 
             if (!$authenticator->login($_POST)) {
-                die("Usuário ou senha incorrectos!");
+                Flash::add('warning', "Usuário ou senha incorrectos!");
+                return header('Location: ' . HOME . '/auth/login');
             }
-            die("Usuário logado com sucesso!");
+
+            Flash::add('success', "Usuário logado com sucesso!");
+            return header('Location: ' . HOME . '/myexpenses');
         }
 
         $view = new View('auth/index.phtml');
@@ -29,6 +33,7 @@ class AuthController
     public function logout()
     {
         $auth = (new Authenticator())->logout();
-        die("Usuário deslogado...");
+        Flash::add('success', "Usuário deslogado com sucesso!");
+        return header('Location: ' . HOME . '/auth/login');
     }
 }
