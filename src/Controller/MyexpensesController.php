@@ -7,6 +7,7 @@ use Code\DB\Connection;
 use Code\Entity\Category;
 use Code\Entity\Expense;
 use Code\Entity\User;
+use Code\Session\Session;
 use Code\View\View;
 
 class MyExpensesController
@@ -22,8 +23,10 @@ class MyExpensesController
 
     public function index()
     {
+        $userId = Session::get('user')['id'];
         $view = new View('expenses/index.phtml');
-        $view->expenses = (new Expense(Connection::getInstance()))->findAll();
+        $view->expenses = (new Expense(Connection::getInstance()))
+                            ->where(['users_id' => $userId]);
 
         return $view->render();
     }
@@ -35,7 +38,7 @@ class MyExpensesController
 
         if ($method == 'POST') {
             $data = $_POST;
-
+            $data['users_id'] = Session::get('user')['id'];
             $expense = new Expense($connection);
             $expense->insert($data);
 

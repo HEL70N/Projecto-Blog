@@ -30,6 +30,15 @@
                     <li class="">
                         <a href="<?= HOME; ?>/myexpenses">Minhas Despesas</a>
                     </li>
+                    <?php if (\Code\Session\Session::has('user')) : ?>
+                        <li class="">
+                            <a href="<?= HOME; ?>/auth/logout">Deslogar</a>
+                        </li>
+                    <?php else : ?>
+                        <li class="">
+                            <a href="<?= HOME; ?>/auth/login">Login</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
